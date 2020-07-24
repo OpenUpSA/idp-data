@@ -1,0 +1,16 @@
+{
+  "name": "idp_data",
+  "version": "1.0.0",
+  "description": "A data backend for the IDP public engagement tool",
+  "main": "assets/js/index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "parcel watch assets/scss/idp_data.scss assets/js/idp_data.js --out-dir assets/bundles",
+    "build": "parcel build assets/scss/idp_data.scss assets/js/idp_data.js --out-dir assets/bundles --no-content-hash"
+  },
+  "dependencies": {
+    "parcel-bundler": "^1.12.4",
+    "sass": "^1.25.1-test.1"
+  }
+}
