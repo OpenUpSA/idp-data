@@ -29,10 +29,15 @@ Apps go in the project directory `idp_data`
 
 ### Python
 
-Dependencies are managed via Pipfile, e.g.
+Dependencies are managed via Pipfile in the docker container.
 
-    pipenv install whitenoise[brotli]==1.2.3
-    docker-compose run --rm web pipenv install --system
+Add and lock dependencies in a temporary container:
+
+    docker-compose run --rm web pipenv install pkgname==1.2.3
+
+Rebuild the image to contain the new dependencies:
+
+    docker-compose build web
 
 Make sure to commit updates to Pipfile and Pipfile.lock to git
 
