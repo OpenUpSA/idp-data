@@ -17,6 +17,7 @@ We want to avoid running as root in production (even inside a container) and we 
 The easiest solution is to make this directory world-writable so that the container user can write to install/update stuff. Be aware of the security implications of this. e.g.
 
     sudo find . -type d -exec chmod 777 '{}' \;
+    sudo find . -type f -exec chmod 774 '{}' \;
 
 Another good option is to specify the user ID to run as in the container. A persistent way to do that is by specifying `user: ${UID}:${GID}` in a `docker-compose.yml` file, perhaps used as an overlay, and specifying your host user's IDs in an environment file used by docker-compose, e.g. `.env`.
 
