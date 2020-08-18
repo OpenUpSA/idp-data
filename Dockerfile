@@ -21,6 +21,11 @@ COPY Pipfile* /tmp/
 RUN cd /tmp \
     && pipenv install --system
 
+RUN mkdir -p /config
+COPY ./requirements.txt /config
+WORKDIR /config
+RUN pip3 install -r ./requirements.txt
+
 COPY . /app
 
 RUN addgroup --system django \

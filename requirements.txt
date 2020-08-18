@@ -1,0 +1,6 @@
+#CORS
+django-cors-headers
+
+#text editor
+django-ckeditor
+pillow
