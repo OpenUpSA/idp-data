@@ -21,11 +21,8 @@ class EventActionSerializer(serializers.ModelSerializer):
 class EventSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
     muni = MunicipalitySerializer()
-    # actions = serializers.RelatedField(many=True, read_only=True)
-    #actions = serializers.SlugRelatedField(many=True, read_only=True, slug_field='title')
     actions = EventActionSerializer(many=True)
 
     class Meta:
         model = Event
-        #fields = ('id', 'title', 'short_desc', 'confirmed_date', 'category', 'muni', 'actions')
         fields = '__all__'
