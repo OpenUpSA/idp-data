@@ -8,6 +8,7 @@ urlpatterns = [
     path("", views.Index.as_view(), name="index"),
     path("idp_data", include("idp_data.idp_data.urls"),),
     path("admin/", admin.site.urls),
-    path('api/v1/geography/<str:geo>/events', views.events),
+    path('api/v1/host/<str:host>/events', views.events),
+    path('api/v1/host/<str:host>', views.geography_detail),
     path('ckeditor', include('ckeditor_uploader.urls')),
 ]

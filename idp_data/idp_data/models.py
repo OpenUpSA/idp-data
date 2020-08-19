@@ -13,9 +13,18 @@ class Category(models.Model):
 
 class Municipality(models.Model):
     code = models.CharField(max_length=50)
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.code
+
+
+class HostnameMunicipality(models.Model):
+    muni = models.ForeignKey(Municipality, on_delete=models.DO_NOTHING, default=None, blank=True, null=True)
+    hostname = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.hostname
 
 
 class Event(models.Model):
