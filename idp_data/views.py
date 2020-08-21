@@ -3,6 +3,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from idp_data.idp_data.models import Event, Municipality, HostnameMunicipality
 from idp_data.idp_data.serializers import EventSerializer, MunicipalitySerializer
+from django.shortcuts import get_object_or_404
 
 
 class Index(generic.TemplateView):
@@ -11,18 +12,18 @@ class Index(generic.TemplateView):
 
 @api_view(['GET'])
 def events(request, host):
-    hostMuni = HostnameMunicipality.objects.filter(hostname=host)
-    muni = hostMuni[0].muni
+    hostMuni = get_object_or_404(HostnameMunicipality, hostname=host)
+    muni = hostMuni.muni
     data = Event.objects.filter(muni=muni.id)
     serializer = EventSerializer(data, many=True)
 
     return Response(serializer.data)
 
+
 @api_view(['GET'])
 def geography_detail(request, host):
-    # Events.objects.filter(muni__hostname=hostname)
-    hostMuni = HostnameMunicipality.objects.filter(hostname=host)
-    muni = hostMuni[0].muni
+    hostMuni = get_object_or_404(HostnameMunicipality, hostname=host)
+    muni = hostMuni.muni
     serializer = MunicipalitySerializer(muni, many=False)
 
     return Response(serializer.data)

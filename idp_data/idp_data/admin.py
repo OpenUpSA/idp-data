@@ -17,5 +17,3 @@ class MunicipalityAdmin(admin.ModelAdmin):
 admin.site.register(Event, EventAdmin)
 admin.site.register(Category)
 admin.site.register(Municipality, MunicipalityAdmin)
-admin.site.register(EventAction)
-admin.site.register(HostnameMunicipality)
