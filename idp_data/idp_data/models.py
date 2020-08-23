@@ -19,7 +19,7 @@ class Municipality(models.Model):
         return self.code
 
 
-class HostnameMunicipality(models.Model):
+class MunicipalityHostname(models.Model):
     muni = models.ForeignKey(Municipality, on_delete=models.DO_NOTHING, default=None, blank=True, null=True)
     hostname = models.CharField(max_length=200)
 
@@ -32,7 +32,8 @@ class Event(models.Model):
     title = models.CharField(max_length=500)
     short_desc = models.CharField(max_length=200)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
-    confirmed_date = models.DateField("Confirmed date", default=date.today)
+    start_date = models.DateField(blank=True, null=True)
+    end_date = models.DateField(blank=False)
 
     def __str__(self):
         return self.title
@@ -41,7 +42,8 @@ class EventAction(models.Model):
     event = models.ForeignKey(Event, models.DO_NOTHING, related_name='actions')
     internal_label = models.CharField(max_length=500)
     icon = models.CharField(max_length=50, default='')
-    description_html = RichTextField(verbose_name="Description")  #models.CharField(max_length=500)
+    confirmed_date = models.CharField(max_length=500)
+    description_html = RichTextField(verbose_name="Description")
 
     def __str__(self):
         return self.internal_label

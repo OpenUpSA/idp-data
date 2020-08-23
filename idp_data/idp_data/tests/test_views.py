@@ -1,7 +1,7 @@
 from django.test import TestCase, Client
 from django.urls import reverse, resolve
 from datetime import date
-from idp_data.idp_data.models import HostnameMunicipality, Municipality, Event, Category
+from idp_data.idp_data.models import MunicipalityHostname, Municipality, Event, Category
 
 
 class TestViews(TestCase):
@@ -16,7 +16,7 @@ class TestViews(TestCase):
             name="test"
         )
 
-        HostnameMunicipality.objects.create(
+        MunicipalityHostname.objects.create(
             muni=muni,
             hostname=self.hostname
         )
@@ -57,12 +57,12 @@ class TestViews(TestCase):
             name="test"
         )
 
-        HostnameMunicipality.objects.create(
+        MunicipalityHostname.objects.create(
             muni=muni,
             hostname=self.hostname
         )
 
-        HostnameMunicipality.objects.create(
+        MunicipalityHostname.objects.create(
             muni=otherMuni,
             hostname='wrongHostname'
         )
@@ -91,7 +91,7 @@ class TestViews(TestCase):
             name="test"
         )
 
-        HostnameMunicipality.objects.create(
+        MunicipalityHostname.objects.create(
             muni=muni,
             hostname=self.hostname
         )
@@ -120,7 +120,7 @@ class TestViews(TestCase):
             name="test muni name"
         )
 
-        HostnameMunicipality.objects.create(
+        MunicipalityHostname.objects.create(
             muni=muni,
             hostname=self.hostname
         )

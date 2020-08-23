@@ -70,9 +70,6 @@ MIDDLEWARE = [
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:1234',
-)
 
 ROOT_URLCONF = "idp_data.urls"
 

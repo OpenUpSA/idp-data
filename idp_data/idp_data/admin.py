@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, Category, Municipality, EventAction, HostnameMunicipality
+from .models import Event, Category, Municipality, EventAction, MunicipalityHostname
 
 class EventActionInline(admin.StackedInline):
     model = EventAction
@@ -8,7 +8,7 @@ class EventAdmin(admin.ModelAdmin):
     inlines = [EventActionInline]
 
 class HostnameMunicipalityInline(admin.StackedInline):
-    model = HostnameMunicipality
+    model = MunicipalityHostname
 
 class MunicipalityAdmin(admin.ModelAdmin):
     inlines = [HostnameMunicipalityInline]
