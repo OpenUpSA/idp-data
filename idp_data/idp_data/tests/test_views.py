@@ -31,7 +31,7 @@ class TestViews(TestCase):
             title='test',
             short_desc='test',
             category=category,
-            confirmed_date=date.today()
+            end_date=date.today()
         )
 
         Event.objects.create(
@@ -39,7 +39,7 @@ class TestViews(TestCase):
             title='test2',
             short_desc='test2',
             category=category,
-            confirmed_date=date.today()
+            end_date=date.today()
         )
 
         url = reverse('events', kwargs={'host': self.hostname})
@@ -77,7 +77,7 @@ class TestViews(TestCase):
             title='test',
             short_desc='test',
             category=category,
-            confirmed_date=date.today()
+            end_date=date.today()
         )
 
         url = reverse('events', kwargs={'host': 'wrongHostname'})
@@ -106,7 +106,7 @@ class TestViews(TestCase):
             title='test event name',
             short_desc='test',
             category=category,
-            confirmed_date=date.today()
+            end_date=date.today()
         )
 
         url = reverse('events', kwargs={'host': self.hostname})
