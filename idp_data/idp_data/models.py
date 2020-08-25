@@ -20,7 +20,7 @@ class Municipality(models.Model):
 
 
 class MunicipalityHostname(models.Model):
-    muni = models.ForeignKey(Municipality, on_delete=models.DO_NOTHING, default=None, blank=True, null=True)
+    muni = models.ForeignKey(Municipality, on_delete=models.CASCADE, default=None, blank=False, null=False)
     hostname = models.CharField(max_length=200)
 
     def __str__(self):
