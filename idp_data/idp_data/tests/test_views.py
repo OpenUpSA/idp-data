@@ -9,36 +9,33 @@ class TestViews(TestCase):
         self.client = Client()
         self.muniCode = "wc001"
         self.hostname = "localhost"
-
-    def test_events_data_count_for_hostname(self):
-        muni = Municipality.objects.create(
+        self.muni = Municipality.objects.create(
             code=self.muniCode,
             name="test"
         )
-
-        MunicipalityHostname.objects.create(
-            muni=muni,
-            hostname=self.hostname
-        )
-
-        category = Category.objects.create(
+        self.category = Category.objects.create(
             name='test',
             icon='test'
         )
 
+        MunicipalityHostname.objects.create(
+            muni=self.muni,
+            hostname=self.hostname
+        )
         Event.objects.create(
-            muni=muni,
+            muni=self.muni,
             title='test',
             short_desc='test',
-            category=category,
+            category=self.category,
             end_date=date.today()
         )
 
+    def test_events_data_count_for_hostname(self):
         Event.objects.create(
-            muni=muni,
+            muni=self.muni,
             title='test2',
             short_desc='test2',
-            category=category,
+            category=self.category,
             end_date=date.today()
         )
 
@@ -48,36 +45,14 @@ class TestViews(TestCase):
         self.assertEquals(len(response.data), 2)
 
     def test_events_data_count_for_wrong_hostname(self):
-        muni = Municipality.objects.create(
-            code=self.muniCode,
-            name="test"
-        )
         otherMuni = Municipality.objects.create(
             code="otherMuni",
             name="test"
         )
 
         MunicipalityHostname.objects.create(
-            muni=muni,
-            hostname=self.hostname
-        )
-
-        MunicipalityHostname.objects.create(
             muni=otherMuni,
             hostname='wrongHostname'
-        )
-
-        category = Category.objects.create(
-            name='test',
-            icon='test'
-        )
-
-        Event.objects.create(
-            muni=muni,
-            title='test',
-            short_desc='test',
-            category=category,
-            end_date=date.today()
         )
 
         url = reverse('events', kwargs={'host': 'wrongHostname'})
@@ -86,46 +61,13 @@ class TestViews(TestCase):
         self.assertEquals(len(response.data), 0)
 
     def test_events_serialized_correctly(self):
-        muni = Municipality.objects.create(
-            code=self.muniCode,
-            name="test"
-        )
-
-        MunicipalityHostname.objects.create(
-            muni=muni,
-            hostname=self.hostname
-        )
-
-        category = Category.objects.create(
-            name='test',
-            icon='test'
-        )
-
-        Event.objects.create(
-            muni=muni,
-            title='test event name',
-            short_desc='test',
-            category=category,
-            end_date=date.today()
-        )
-
         url = reverse('events', kwargs={'host': self.hostname})
         response = self.client.get(url)
 
-        self.assertEquals(response.data[0]['title'], 'test event name')
+        self.assertEquals(response.data[0]['title'], 'test')
 
     def test_muni_serialized_correctly(self):
-        muni = Municipality.objects.create(
-            code=self.muniCode,
-            name="test muni name"
-        )
-
-        MunicipalityHostname.objects.create(
-            muni=muni,
-            hostname=self.hostname
-        )
-
         url = reverse('geo', kwargs={'host': self.hostname})
         response = self.client.get(url)
 
-        self.assertEquals(response.data['name'], 'test muni name')
+        self.assertEquals(response.data['name'], 'test')
