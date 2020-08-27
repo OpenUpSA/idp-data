@@ -7,11 +7,11 @@ class EventActionInline(admin.StackedInline):
 class EventAdmin(admin.ModelAdmin):
     inlines = [EventActionInline]
 
-class HostnameMunicipalityInline(admin.StackedInline):
+class MunicipalityHostnameInline(admin.StackedInline):
     model = MunicipalityHostname
 
 class MunicipalityAdmin(admin.ModelAdmin):
-    inlines = [HostnameMunicipalityInline]
+    inlines = [MunicipalityHostnameInline]
 
 
 admin.site.register(Event, EventAdmin)
