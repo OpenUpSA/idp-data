@@ -20,19 +20,19 @@ class TestUrls(TestCase):
             hostname=self.hostname
         )
 
-        url = reverse('events', kwargs={'host': self.hostname})
+        url = reverse('events') + "?hostname=" + self.hostname
         response = self.client.get(url)
 
         self.assertEquals(response.status_code, 200)
 
     def test_event_POST_disallowed(self):
-        url = reverse('events', kwargs={'host': self.hostname})
+        url = reverse('events') + "?hostname=" + self.hostname
         response = self.client.post(url)
 
         self.assertEquals(response.status_code, 405)    #not allowed
 
     def test_event_DELETE_disallowed(self):
-        url = reverse('events', kwargs={'host': self.hostname})
+        url = reverse('events') + "?hostname=" + self.hostname
         response = self.client.delete(url)
 
         self.assertEquals(response.status_code, 405)    #not allowed
@@ -49,7 +49,7 @@ class TestUrls(TestCase):
             hostname=self.hostname
         )
 
-        url = reverse('geo', kwargs={'host': self.hostname})
+        url = reverse('geo') + "?hostname=" + self.hostname
         response = self.client.get(url)
 
         self.assertEquals(response.status_code, 200)
@@ -57,13 +57,13 @@ class TestUrls(TestCase):
         self.assertEquals(MunicipalityHostname.objects.count(), 1)
 
     def test_geography_details_POST_disallowed(self):
-        url = reverse('geo', kwargs={'host': self.hostname})
+        url = reverse('geo') + "?hostname=" + self.hostname
         response = self.client.post(url)
 
         self.assertEquals(response.status_code, 405)    #not allowed
 
     def test_geography_details_DELETE_disallowed(self):
-        url = reverse('geo', kwargs={'host': self.hostname})
+        url = reverse('geo') + "?hostname=" + self.hostname
         response = self.client.delete(url)
 
         self.assertEquals(response.status_code, 405)    #not allowed

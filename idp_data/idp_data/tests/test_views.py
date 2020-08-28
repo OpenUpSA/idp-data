@@ -39,7 +39,7 @@ class TestViews(TestCase):
             end_date=date.today()
         )
 
-        url = reverse('events', kwargs={'host': self.hostname})
+        url = reverse('events') + "?hostname=" + self.hostname
         response = self.client.get(url)
 
         self.assertEquals(len(response.data), 2)
@@ -55,19 +55,19 @@ class TestViews(TestCase):
             hostname='wrongHostname'
         )
 
-        url = reverse('events', kwargs={'host': 'wrongHostname'})
+        url = reverse('events') + "?hostname=wrongHostname"
         response = self.client.get(url)
 
         self.assertEquals(len(response.data), 0)
 
     def test_events_serialized_correctly(self):
-        url = reverse('events', kwargs={'host': self.hostname})
+        url = reverse('events') + "?hostname=localhost"
         response = self.client.get(url)
 
         self.assertEquals(response.data[0]['title'], 'test')
 
     def test_muni_serialized_correctly(self):
-        url = reverse('geo', kwargs={'host': self.hostname})
+        url = reverse('geo') + "?hostname=localhost"
         response = self.client.get(url)
 
         self.assertEquals(response.data['name'], 'test')

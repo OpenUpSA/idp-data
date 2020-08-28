@@ -11,7 +11,8 @@ class Index(generic.TemplateView):
 
 
 @api_view(['GET'])
-def events(request, host):
+def events(request):
+    host = request.GET.get('hostname', '')
     data = Event.objects.filter(muni__municipalityhostname__hostname=host)
     serializer = EventSerializer(data, many=True)
 
@@ -19,7 +20,8 @@ def events(request, host):
 
 
 @api_view(['GET'])
-def geography_detail(request, host):
+def geography_detail(request):
+    host = request.GET.get('hostname', '')
     muni = get_object_or_404(Municipality, municipalityhostname__hostname=host)
     serializer = MunicipalitySerializer(muni, many=False)
 

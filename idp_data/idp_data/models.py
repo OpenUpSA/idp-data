@@ -20,7 +20,7 @@ class Municipality(models.Model):
 
 
 class MunicipalityHostname(models.Model):
-    muni = models.ForeignKey(Municipality, on_delete=models.CASCADE, default=None, blank=False, null=False)
+    muni = models.ForeignKey(Municipality, on_delete=models.CASCADE)
     hostname = models.CharField(max_length=200)
 
     def __str__(self):
@@ -28,7 +28,7 @@ class MunicipalityHostname(models.Model):
 
 
 class Event(models.Model):
-    muni = models.ForeignKey(Municipality, on_delete=models.CASCADE, default=None, blank=False, null=False)
+    muni = models.ForeignKey(Municipality, on_delete=models.CASCADE)
     title = models.CharField(max_length=500)
     short_desc = models.CharField(max_length=200)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
