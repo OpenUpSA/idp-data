@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from idp_data.idp_data.models import Event, Municipality, MunicipalityHostname
 from idp_data.idp_data.serializers import EventSerializer, MunicipalitySerializer
 from django.shortcuts import get_object_or_404
+from django.db.models import Case, CharField, Value, When
 
 
 class Index(generic.TemplateView):
@@ -14,6 +15,10 @@ class Index(generic.TemplateView):
 def events(request):
     host = request.GET.get('hostname', '')
     data = Event.objects.filter(muni__municipalityhostname__hostname=host)
+    data = sorted(
+        data,
+        key=lambda event: event.start_date or event.end_date
+    )
     serializer = EventSerializer(data, many=True)
 
     return Response(serializer.data)
