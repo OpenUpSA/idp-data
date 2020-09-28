@@ -14,6 +14,8 @@ class Category(models.Model):
 class Municipality(models.Model):
     code = models.CharField(max_length=50)
     name = models.CharField(max_length=200)
+    homepage_url = models.CharField(max_length=500)
+    by_laws_url = models.CharField(max_length=500)
 
     def __str__(self):
         return self.code
