@@ -16,6 +16,7 @@ class Municipality(models.Model):
     name = models.CharField(max_length=200)
     homepage_url = models.CharField(max_length=500)
     by_laws_url = models.CharField(max_length=500)
+    ward_councillor_url = models.CharField(max_length=500,verbose_name="Find Your Ward Councillor Url")
 
     def __str__(self):
         return self.code
