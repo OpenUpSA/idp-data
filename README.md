@@ -76,6 +76,10 @@ the above again:
     docker-compose down --volumes
 
 
+You can create a development admin user with:
+`docker-compose run --rm web python manage.py createsuperuser`
+
+
 Running tests
 -------------
 
