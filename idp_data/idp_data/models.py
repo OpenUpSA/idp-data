@@ -17,6 +17,7 @@ class Municipality(models.Model):
     homepage_url = models.CharField(max_length=500,verbose_name="Homepage URL")
     by_laws_url = models.CharField(max_length=500,verbose_name="By Laws URL")
     ward_councillor_url = models.CharField(max_length=500,verbose_name="Find Your Ward Councillor URL")
+    page_title = models.CharField(max_length=200,verbose_name="Page Title",default="Public Participation Guide")
 
     def __str__(self):
         return self.code
