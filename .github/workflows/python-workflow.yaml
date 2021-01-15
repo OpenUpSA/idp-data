@@ -1,0 +1,31 @@
+name: Python package
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pipenv
+          pipenv install --dev
+          docker-compose run --rm web yarn
+      - name: Test
+        run: |
+          docker-compose run --rm web yarn build
+          docker-compose run --rm web python manage.py collectstatic --no-input
+          docker-compose run --rm web bin/wait-for-postgres.sh coverage run --source=idp_data manage.py test
+      - name: After test
+        run: |
+          docker-compose logs db
+          docker-compose run --rm `bash <(curl -s https://codecov.io/env)` web codecov
