@@ -9,7 +9,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Test
         run: |
-          docker-compose run --rm web python manage.py collectstatic --no-input
           docker-compose run --rm web bin/wait-for-postgres.sh coverage run --source=idp_data manage.py test
       - uses: codecov/codecov-action@v1
         with:
