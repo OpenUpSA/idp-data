@@ -14,6 +14,7 @@ RUN apt-get update \
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
 
+RUN python -m pip install --upgrade pip
 RUN pip install pipenv
 
 # Copy, then install requirements before copying rest for a requirements cache layer.
