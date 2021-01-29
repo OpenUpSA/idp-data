@@ -7,8 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Setup tmate session
-        uses: mxschmitt/action-tmate@v3
       - name: Test
         run: |
           docker-compose run --rm web bin/wait-for-postgres.sh coverage run --source=idp_data manage.py test
