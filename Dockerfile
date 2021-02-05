@@ -3,6 +3,8 @@ FROM openup/docker-python-nodejs:python3.7-nodejs12
 ENV PYTHONUNBUFFERED 1
 ENV NODE_ENV production
 
+RUN apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
+
 RUN apt-get update \
   # dependencies for building Python packages
   && apt-get install -y build-essential python3.7-dev \
