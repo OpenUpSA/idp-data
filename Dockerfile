@@ -3,6 +3,8 @@ FROM openup/docker-python-nodejs:python3.7-nodejs12
 ENV PYTHONUNBUFFERED 1
 ENV NODE_ENV production
 
+RUN apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
+
 RUN apt-get update \
   # dependencies for building Python packages
   && apt-get install -y build-essential python3.7-dev \
@@ -14,6 +16,7 @@ RUN apt-get update \
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*
 
+RUN python -m pip install --upgrade pip
 RUN pip install pipenv
 
 # Copy, then install requirements before copying rest for a requirements cache layer.
