@@ -18,6 +18,8 @@ class Municipality(models.Model):
     by_laws_url = models.CharField(max_length=500,verbose_name="By Laws URL")
     ward_councillor_url = models.CharField(max_length=500,verbose_name="Find Your Ward Councillor URL")
     page_title = models.CharField(max_length=200,verbose_name="Page Title",default="Public Participation Guide")
+    colour_primary_fill = models.CharField(max_length=6,verbose_name="Custom primary fill colour",help_text="CSS hex colour code e.g. ff8c00",default='ff8c00')
+    colour_primary_text = models.CharField(max_length=6,verbose_name="Custom primary text colour",help_text="CSS hex colour code e.g. ff8c00",default='ff8c00')
 
     def __str__(self):
         return self.code
