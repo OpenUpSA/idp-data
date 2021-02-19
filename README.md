@@ -101,3 +101,15 @@ Undefined settings result in exceptions at startup to let you know they are not 
 | `DJANGO_SECRET_KEY` | undefined | String | Set this to something secret and unguessable in production. The security of your cookies and other crypto stuff in django depends on it. |
 | `TAG_MANAGER_CONTAINER_ID` | undefined | String | [Google Tag Manager](tagmanager.google.com) Container ID. [Use this to set up Google Analytics.](https://support.google.com/tagmanager/answer/6107124?hl=en). Requried unless `TAG_MANAGER_ENABLED` is set to `False` |
 | `TAG_MANAGER_ENABLED` | `False` | Boolean | Use this to disable the Tag Manager snippets, e.g. in dev or sandbox. |
+
+Deployment/Production
+---------------------
+
+Production runs on Dokku `idp1-aws.openup.org.za`. 
+
+To deploy;
+- `git push dokku master`
+
+Migrations can be run on the production server;
+- `ssh dokku@idp1-aws.openup.org.za`
+- `dokku run idp-data python manage.py migrate`
