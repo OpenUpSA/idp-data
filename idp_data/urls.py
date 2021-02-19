@@ -10,5 +10,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('api/v1/events', views.events, name="events"),
     path('api/v1/municipality', views.geography_detail, name="geo"),
+    path('api/v1/categories', views.categories, name="category"),
     path('ckeditor', include('ckeditor_uploader.urls')),
 ]

@@ -1,15 +1,14 @@
 from django.views import generic
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from idp_data.idp_data.models import Event, Municipality, MunicipalityHostname
-from idp_data.idp_data.serializers import EventSerializer, MunicipalitySerializer
+from idp_data.idp_data.models import Event, Municipality, MunicipalityHostname, Category
+from idp_data.idp_data.serializers import EventSerializer, MunicipalitySerializer, CategorySerializer
 from django.shortcuts import get_object_or_404
 from django.db.models import Case, CharField, Value, When
 
 
 class Index(generic.TemplateView):
     template_name = "index.html"
-
 
 @api_view(['GET'])
 def events(request):
@@ -23,6 +22,12 @@ def events(request):
 
     return Response(serializer.data)
 
+@api_view(['GET'])
+def categories(_request):
+    data = Category.objects
+    serializer = CategorySerializer(data, many=True)
+
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def geography_detail(request):
