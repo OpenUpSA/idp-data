@@ -37,7 +37,7 @@ class MunicipalityHostname(models.Model):
 class Event(models.Model):
     muni = models.ForeignKey(Municipality, on_delete=models.CASCADE)
     title = models.CharField(max_length=500)
-    short_desc = models.CharField(max_length=200)
+    short_desc = models.TextField(max_length=500,help_text="Max. 500 characters")
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=False)
