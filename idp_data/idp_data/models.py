@@ -17,6 +17,7 @@ class Municipality(models.Model):
     name = models.CharField(max_length=200)
     homepage_url = models.CharField(max_length=500,verbose_name="Homepage URL")
     by_laws_url = models.CharField(max_length=500,verbose_name="By Laws URL")
+    financial_performance_url = models.CharField(max_length=500,verbose_name="Financial Performance URL",default="")
     ward_councillor_url = models.CharField(max_length=500,verbose_name="Find Your Ward Councillor URL")
     page_title = models.CharField(max_length=200,verbose_name="Page Title",default="Public Participation Guide")
     colour_primary_fill = models.CharField(max_length=6,verbose_name="Custom primary fill colour",help_text="CSS hex colour code e.g. ff8c00",default='ff8c00')
