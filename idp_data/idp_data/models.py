@@ -7,6 +7,7 @@ class Category(models.Model):
     name = models.CharField(max_length=500)
     icon = models.CharField(max_length=50, default='')
     description = models.TextField(max_length=1000, default='',help_text="This is shown to users.")
+    public = models.BooleanField(default=False,help_text='Whether this category is a public or internal event')
 
     def __str__(self):
         return self.name
