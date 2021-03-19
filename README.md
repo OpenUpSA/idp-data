@@ -67,6 +67,10 @@ In another shell, initialise and run the django app
     docker-compose run --rm web python manage.py migrate
     docker-compose up
 
+To make a migration after modifying `models.py`:
+    docker-compose run --rm web python manage.py makemigrations
+
+
 
 If you need to destroy and recreate your dev setup, e.g. if you've messed up your
 database data or want to switch to a branch with an incompatible database schema,
