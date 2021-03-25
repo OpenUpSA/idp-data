@@ -43,6 +43,8 @@ class Event(models.Model):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     start_date = models.DateField(blank=True, null=True)
     end_date = models.DateField(blank=False)
+    comment_open_date = models.DateField(blank=True, null=True)
+    comment_close_date = models.DateField(blank=True, null=True)
 
     def __str__(self):
         return self.title
