@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Event, Category, Municipality, EventAction
+from .models import Event, Category, Municipality, EventAction, EventSubmission
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -25,4 +25,12 @@ class EventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Event
+        fields = '__all__'
+
+
+class EventSubmissionSerializer(serializers.ModelSerializer):
+    #event = EventSerializer(many=True)
+
+    class Meta:
+        model = EventSubmission
         fields = '__all__'

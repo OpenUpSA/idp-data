@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, Category, Municipality, EventAction, MunicipalityHostname
+from .models import Event, Category, Municipality, EventAction, MunicipalityHostname, EventSubmission
 
 class EventActionInline(admin.StackedInline):
     model = EventAction
@@ -16,4 +16,5 @@ class MunicipalityAdmin(admin.ModelAdmin):
 
 admin.site.register(Event, EventAdmin)
 admin.site.register(Category)
+admin.site.register(EventSubmission)
 admin.site.register(Municipality, MunicipalityAdmin)

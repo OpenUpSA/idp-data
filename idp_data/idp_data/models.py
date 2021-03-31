@@ -58,3 +58,16 @@ class EventAction(models.Model):
 
     def __str__(self):
         return self.internal_label
+
+class EventSubmission(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    submission = models.TextField(max_length=5000)
+    #TODO: Better defaults
+    submission_issue = models.CharField(max_length=500,default="Municipal")
+    submitter_town = models.CharField(max_length=500,default="Bitterfontein")
+    submitter_name = models.CharField(max_length=255)
+    submitter_contact = models.CharField(max_length=255)
+    submitted = models.DateTimeField(blank=False, null=False, auto_now_add=True)
+
+    def __str__(self):
+        return f'#{self.id} - {self.event} - {self.submitted}'
