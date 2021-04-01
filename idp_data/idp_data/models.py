@@ -1,6 +1,8 @@
 from django.db import models
 from datetime import date
 from ckeditor.fields import RichTextField
+from django.contrib.postgres.fields import JSONField
+
 
 
 class Category(models.Model):
@@ -23,6 +25,7 @@ class Municipality(models.Model):
     page_title = models.CharField(max_length=200,verbose_name="Page Title",default="Public Participation Guide")
     colour_primary_fill = models.CharField(max_length=6,verbose_name="Custom primary fill colour",help_text="CSS hex colour code e.g. ff8c00",default='ff8c00')
     colour_primary_text = models.CharField(max_length=6,verbose_name="Custom primary text colour",help_text="CSS hex colour code e.g. ff8c00",default='ff8c00')
+    towns = JSONField(default=dict)
 
     def __str__(self):
         return self.code
