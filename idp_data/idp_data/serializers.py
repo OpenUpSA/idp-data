@@ -29,8 +29,6 @@ class EventSerializer(serializers.ModelSerializer):
 
 
 class EventSubmissionSerializer(serializers.ModelSerializer):
-    #event = EventSerializer(many=True)
-
     class Meta:
         model = EventSubmission
         fields = '__all__'
