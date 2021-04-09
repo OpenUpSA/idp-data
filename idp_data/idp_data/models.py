@@ -74,4 +74,4 @@ class EventSubmission(models.Model):
     recaptcha_score = models.FloatField(blank=True, null=True)
 
     def __str__(self):
-        return f'#{self.id} - {self.event} - {self.submitted}'
+        return f'#{self.id} - {self.event} - {self.submitter_name} - {self.submitted}'
