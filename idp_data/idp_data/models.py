@@ -71,6 +71,7 @@ class EventSubmission(models.Model):
     submitter_name = models.CharField(max_length=255)
     submitter_contact = models.CharField(max_length=255)
     submitted = models.DateTimeField(blank=False, null=False, auto_now_add=True)
+    recaptcha_score = models.FloatField(blank=True, null=True)
 
     def __str__(self):
-        return f'#{self.id} - {self.event} - {self.submitted}'
+        return f'#{self.id} - {self.event} - {self.submitter_name} - {self.submitted}'

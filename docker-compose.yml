@@ -11,6 +11,8 @@ services:
     command: ./manage.py runserver 0.0.0.0:8000
     depends_on:
       - db
+    env_file:
+      - .env
     environment:
       - DATABASE_URL=postgresql://idp_data:devpassword@db/idp_data
       - DJANGO_DEBUG=True
