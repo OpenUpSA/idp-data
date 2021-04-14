@@ -9,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.db.models import Case, CharField, Value, When
 from rest_framework import status
 from rest_framework.parsers import JSONParser
+from idp_data.helpers import EmailEventSubmission 
 
 
 class Index(generic.TemplateView):
@@ -63,6 +64,7 @@ def event_submissions(request):
 
         if event_submission_serializer.is_valid():
             event_submission_serializer.save()
+            EmailEventSubmission(event_submission_serializer)
             return Response(event_submission_serializer.data, status=status.HTTP_201_CREATED) 
         return Response(event_submission_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.GET:
