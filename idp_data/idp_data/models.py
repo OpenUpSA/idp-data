@@ -26,6 +26,7 @@ class Municipality(models.Model):
     colour_primary_fill = models.CharField(max_length=6,verbose_name="Custom primary fill colour",help_text="CSS hex colour code e.g. ff8c00",default='ff8c00')
     colour_primary_text = models.CharField(max_length=6,verbose_name="Custom primary text colour",help_text="CSS hex colour code e.g. ff8c00",default='ff8c00')
     towns = JSONField(default=dict)
+    event_submission_email_address = models.EmailField(max_length=254, null=True, blank=True, help_text="The email address any event submissions (comments) should be sent to.")
 
     def __str__(self):
         return self.code
