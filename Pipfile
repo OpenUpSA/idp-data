@@ -25,6 +25,7 @@ codecov = "==2.1.8"
 django-cors-headers = "==3.5.0"
 django-ckeditor = "==5.9.0"
 coverage = "==5.4"
+sendgrid = "*"
 
 [requires]
 python_version = "3.7"
