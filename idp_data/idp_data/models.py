@@ -51,6 +51,7 @@ class Event(models.Model):
     end_date = models.DateField(blank=False)
     comment_open_date = models.DateField(blank=True, null=True)
     comment_close_date = models.DateField(blank=True, null=True)
+    modal_information = RichTextField(blank=True, null=True, help_text="Shown in modal but not on card.")
 
     def __str__(self):
         return self.title
@@ -61,6 +62,7 @@ class EventAction(models.Model):
     icon = models.CharField(max_length=50, default='')
     confirmed_date = models.CharField(max_length=500)
     description_html = RichTextField(verbose_name="Description")
+    extra = models.BooleanField(default=False,help_text='Extra actions are only shown in the modal')
 
     def __str__(self):
         return self.internal_label
