@@ -28,6 +28,7 @@ class EventSubmissionAdmin(admin.ModelAdmin):
                     'submitter_name',
                     'submitter_contact',
                     'event_muni')
+    list_filter = ('submitter_town', 'submission_issue', 'event')
 
     def event_muni(self, obj):
         return obj.event.muni.name
