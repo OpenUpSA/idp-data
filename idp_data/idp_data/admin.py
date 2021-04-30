@@ -10,6 +10,10 @@ from .models import Event, Category, Municipality, EventAction, MunicipalityHost
 class EventActionInline(admin.StackedInline):
     model = EventAction
 
+class CategoryAdmin(admin.ModelAdmin):
+    model = Category
+    list_display = ('name', 'group')
+    list_filter = ['group']
 
 class EventAdmin(admin.ModelAdmin):
     inlines = [EventActionInline]
@@ -60,6 +64,6 @@ class EventSubmissionAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Event, EventAdmin)
-admin.site.register(Category)
+admin.site.register(Category, CategoryAdmin)
 admin.site.register(EventSubmission, EventSubmissionAdmin)
 admin.site.register(Municipality, MunicipalityAdmin)
