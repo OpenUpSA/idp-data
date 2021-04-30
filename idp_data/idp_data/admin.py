@@ -38,25 +38,21 @@ class EventSubmissionAdmin(admin.ModelAdmin):
     def changelist_view(self, request, extra_context=None):
         response = super().changelist_view(request, extra_context)
         queryset = response.context_data["cl"].queryset
-        chart_data = (queryset.annotate(date=TruncDay("submitted"))
-                      .values("date")
-                      .annotate(y=Count("id"))
-                      .order_by("-date"))
+
+        filtered_chart_data = (queryset.annotate(date=TruncDay("submitted"))
+            .values("date")
+            .annotate(y=Count("id"))
+            .order_by("-date"))
         
         all_chart_data = (EventSubmission.objects.annotate(date=TruncDay("submitted"))
             .values("date")
             .annotate(y=Count("id"))
             .order_by("-date"))
 
-        # Serialize and attach the chart data to the template context
-        as_json = json.dumps(list(chart_data), cls=DjangoJSONEncoder)
-        all_as_json = json.dumps(list(all_chart_data), cls=DjangoJSONEncoder)
-        extra_context = extra_context or {"chart_data": as_json, "all_chart_data": all_as_json}
+        filtered_chart_data_json = json.dumps(list(filtered_chart_data), cls=DjangoJSONEncoder)
+        all_chart_data_json = json.dumps(list(all_chart_data), cls=DjangoJSONEncoder)
+        extra_context = extra_context or {"chart_data": filtered_chart_data_json, "all_chart_data": all_chart_data_json}
 
-        #as_json[0] = {"date": "2021-03-1T00:00:00Z", "y": 0}
-        print(as_json)
-
-        # Call the superclass changelist_view to render the page
         return super().changelist_view(request, extra_context=extra_context)
 
     def event_muni(self, obj):

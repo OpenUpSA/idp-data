@@ -6,6 +6,10 @@
 {{ block.super }}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+<script type="text/javascript">
+    const allChartData = {{ all_chart_data | safe }};
+    const chartData = {{ chart_data | safe }};
+</script>
 {% endblock %}
 
 {% block content %}
@@ -16,77 +20,6 @@
 {{ block.super }}
 <!-- Render the rest of the ChangeList view -->
 
-
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-    const ctx = document.getElementById('myChart').getContext('2d');
-
-    const allChartData = {{ all_chart_data | safe }};
-    const chartData = {{ chart_data | safe }};
-
-    // Parse the dates to JS
-    chartData.forEach((d) => {
-        d.x = new Date(d.date);
-    });
-
-    allChartData.forEach((d) => {
-        d.x = new Date(d.date);
-    });
-
-    let datasets = [{
-        label: 'All submissions',
-        data: allChartData,
-        backgroundColor: 'rgba(200,200,200,1)'
-    }];
-
-    if (chartData.length !== allChartData.length) {
-        datasets.push({
-            label: 'Filtered submissions',
-            data: chartData,
-            backgroundColor: 'rgba(220,20,20,1)'
-        });
-    }
-
-    // Render the chart
-    const chart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            datasets: datasets
-        },
-        options: {
-            responsive: false,
-            scales: {
-                scales: {
-                    x: {
-                        stacked: true,
-                    },
-                    y: {
-                        stacked: true
-                    }
-                },
-                xAxes: [
-                    {
-                        type: 'time',
-                        time: {
-                            unit: 'day',
-                            round: 'day',
-                            displayFormats: {
-                                day: 'MMM D',
-                            },
-                        },
-                    },
-                ],
-                yAxes: [
-                    {
-                        ticks: {
-                            beginAtZero: true,
-                        },
-                    },
-                ],
-            },
-        },
-    });
-});
-</script>
+<script src="{% static 'javascript/event_submission_chart.js' %}" type="text/javascript"></script>
 
 {% endblock %}
