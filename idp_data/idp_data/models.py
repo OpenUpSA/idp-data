@@ -9,7 +9,6 @@ class Category(models.Model):
     name = models.CharField(max_length=500)
     icon = models.CharField(max_length=50, default='')
     description = RichTextField(max_length=1000, default='',help_text="This is shown to users.")
-    public = models.BooleanField(default=False,help_text='Whether this category is a public or internal event')
     group = models.CharField(max_length=255,default='',null=True,help_text='The heading this info will be grouped under')
 
     def __str__(self):
