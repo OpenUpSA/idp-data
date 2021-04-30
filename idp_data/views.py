@@ -25,7 +25,7 @@ def events(request):
 
 @api_view(['GET'])
 def categories(_request):
-    data = Category.objects
+    data = Category.objects.order_by("group")
     serializer = CategorySerializer(data, many=True)
 
     return Response(serializer.data)
