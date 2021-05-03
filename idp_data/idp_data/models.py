@@ -29,6 +29,7 @@ class Municipality(models.Model):
     event_submission_email_address = models.EmailField(max_length=254, null=True, blank=True, help_text="The email address any event submissions (comments) should be sent to.")
     enquiry_email_address = models.EmailField(max_length=254, null=True, blank=True, help_text="The email address shown after event submissions.")
     event_submission_form_enabled = models.BooleanField(default=False,help_text='Whether this municipality will show the comment form for active engagements.')
+    post_submission_message = RichTextField(blank=True, null=True, help_text="Shown after an even submission has been made.")
 
     def __str__(self):
         return self.code
