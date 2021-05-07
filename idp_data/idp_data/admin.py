@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models.functions import TruncDay
 from django.db.models import Count
+from .export_csv_mixin import ExportCsvMixin
 
 from .models import Event, Category, Municipality, EventAction, MunicipalityHostname, EventSubmission
 
@@ -10,10 +11,12 @@ from .models import Event, Category, Municipality, EventAction, MunicipalityHost
 class EventActionInline(admin.StackedInline):
     model = EventAction
 
+
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
     list_display = ('name', 'group')
     list_filter = ['group']
+
 
 class EventAdmin(admin.ModelAdmin):
     inlines = [EventActionInline]
@@ -27,7 +30,8 @@ class MunicipalityAdmin(admin.ModelAdmin):
     inlines = [MunicipalityHostnameInline]
 
 
-class EventSubmissionAdmin(admin.ModelAdmin):
+class EventSubmissionAdmin(admin.ModelAdmin, ExportCsvMixin):
+    actions = ["export_as_csv"]
     model = EventSubmission
     date_hierarchy = 'submitted'
     list_display = ('submitted',
@@ -41,21 +45,24 @@ class EventSubmissionAdmin(admin.ModelAdmin):
 
     def changelist_view(self, request, extra_context=None):
         response = super().changelist_view(request, extra_context)
-        queryset = response.context_data["cl"].queryset
+        queryset = self.get_queryset(request)
 
         filtered_chart_data = (queryset.annotate(date=TruncDay("submitted"))
-            .values("date")
-            .annotate(y=Count("id"))
-            .order_by("-date"))
-        
-        all_chart_data = (EventSubmission.objects.annotate(date=TruncDay("submitted"))
-            .values("date")
-            .annotate(y=Count("id"))
-            .order_by("-date"))
+                               .values("date")
+                               .annotate(y=Count("id"))
+                               .order_by("-date"))
 
-        filtered_chart_data_json = json.dumps(list(filtered_chart_data), cls=DjangoJSONEncoder)
-        all_chart_data_json = json.dumps(list(all_chart_data), cls=DjangoJSONEncoder)
-        extra_context = extra_context or {"chart_data": filtered_chart_data_json, "all_chart_data": all_chart_data_json}
+        all_chart_data = (EventSubmission.objects.annotate(date=TruncDay("submitted"))
+                          .values("date")
+                          .annotate(y=Count("id"))
+                          .order_by("-date"))
+
+        filtered_chart_data_json = json.dumps(
+            list(filtered_chart_data), cls=DjangoJSONEncoder)
+        all_chart_data_json = json.dumps(
+            list(all_chart_data), cls=DjangoJSONEncoder)
+        extra_context = extra_context or {
+            "chart_data": filtered_chart_data_json, "all_chart_data": all_chart_data_json}
 
         return super().changelist_view(request, extra_context=extra_context)
 
