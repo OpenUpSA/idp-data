@@ -8,6 +8,16 @@ from .export_csv_mixin import ExportCsvMixin
 from .models import Event, Category, Municipality, EventAction, MunicipalityHostname, EventSubmission
 
 
+#@admin.action(description='Archive selected events')
+def make_archived(modeladmin, request, queryset):
+    queryset.update(archived=True)
+
+
+#@admin.action(description='Unarchive selected events')
+def make_unarchived(modeladmin, request, queryset):
+    queryset.update(archived=False)
+
+
 class EventActionInline(admin.StackedInline):
     model = EventAction
 
@@ -24,6 +34,7 @@ class EventAdmin(admin.ModelAdmin):
                     'end_date', 'archived')
     list_filter = ('muni', 'title', 'category', 'start_date',
                    'end_date', 'archived')
+    actions = [make_archived, make_unarchived]
 
 
 class MunicipalityHostnameInline(admin.StackedInline):
