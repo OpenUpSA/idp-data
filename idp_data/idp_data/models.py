@@ -44,6 +44,7 @@ class MunicipalityHostname(models.Model):
 
 
 class Event(models.Model):
+    archived = models.BooleanField(default=False)
     muni = models.ForeignKey(Municipality, on_delete=models.CASCADE)
     title = models.CharField(max_length=500)
     short_desc = models.TextField(max_length=500,help_text="Max. 500 characters")
