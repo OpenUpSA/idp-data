@@ -32,7 +32,7 @@ class Municipality(models.Model):
     post_submission_message = RichTextField(blank=True, null=True, help_text="Shown after an even submission has been made.")
 
     def __str__(self):
-        return self.code
+        return self.name + " (" + self.code + ")"
 
 
 class MunicipalityHostname(models.Model):
