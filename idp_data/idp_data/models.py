@@ -32,7 +32,7 @@ class Municipality(models.Model):
     post_submission_message = RichTextField(blank=True, null=True, help_text="Shown after an even submission has been made.")
 
     def __str__(self):
-        return self.code
+        return self.name + " (" + self.code + ")"
 
 
 class MunicipalityHostname(models.Model):
@@ -44,6 +44,7 @@ class MunicipalityHostname(models.Model):
 
 
 class Event(models.Model):
+    archived = models.BooleanField(default=False)
     muni = models.ForeignKey(Municipality, on_delete=models.CASCADE)
     title = models.CharField(max_length=500)
     short_desc = models.TextField(max_length=500,help_text="Max. 500 characters")

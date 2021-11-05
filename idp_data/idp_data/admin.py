@@ -20,6 +20,10 @@ class CategoryAdmin(admin.ModelAdmin):
 
 class EventAdmin(admin.ModelAdmin):
     inlines = [EventActionInline]
+    list_display = ('muni', 'title', 'category', 'start_date',
+                    'end_date', 'archived')
+    list_filter = ('muni', 'title', 'category', 'start_date',
+                   'end_date', 'archived')
 
 
 class MunicipalityHostnameInline(admin.StackedInline):

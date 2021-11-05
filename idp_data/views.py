@@ -18,7 +18,7 @@ class Index(generic.TemplateView):
 @api_view(['GET'])
 def events(request):
     host = request.GET.get('hostname', '')
-    data = Event.objects.filter(muni__municipalityhostname__hostname=host).order_by("start_date", "end_date")
+    data = Event.objects.filter(muni__municipalityhostname__hostname=host, archived=False).order_by("start_date", "end_date")
     serializer = EventSerializer(data, many=True)
 
     return Response(serializer.data)
